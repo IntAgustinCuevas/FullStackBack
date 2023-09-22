@@ -125,10 +125,9 @@ app.post('/users/login' , async (req, res) => {
 //POST crear personaje.
 app.post('/characters/add' , async (req, res) => {
 	let name = req.body.name;
-
-	try{
-		const result = await characterController.createCharacter(name);
-		
+	try{	
+		const result = await characterController.createCharacter(name);	
+		console.log(result);
 		if(result){
 			res.status(201).send('Personaje creado correctamente');
 		}else{
