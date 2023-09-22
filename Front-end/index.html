@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id='boton'>aaaaa</button>
+    
+    <script> 
+
+        let url = 'http://localhost:4000/'
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const texto = data.text; 
+                document.getElementById('boton').textContent = texto;
+            })
+            .catch(error => console.log(error))   
+            
+            const boton = document.getElementById('boton');
+            boton.addEventListener('click' , () => {
+                let redirectUrl = 'http://localhost:4000/home'      
+                fetch(redirectUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const texto1 = data.login;
+                    const texto2 = data.signup;
+                    const boton1 = document.createElement('button');
+                    const boton2 = document.createElement('button');
+                    boton1.textContent = texto1;
+                    boton2.textContent = texto2;
+                    document.body.appendChild(boton1);
+                    document.body.appendChild(boton2);
+                    boton.style.display = 'none';
+                    })
+                .catch(error => console.log(error))    
+                })
+
+    </script>
+</body>
+</html>
