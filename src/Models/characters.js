@@ -5,31 +5,7 @@ const characterSchema = new Schema({
     name:{
         type: String,
         required: true,
-        index: {unique:true}
-    },
-
-    face:{
-        type: String,
-        required: false,
         index: {unique: true}
-    },
-
-    upperPart:{
-        type: String,
-        required: false,
-        index: {unique:false}
-    },
-
-    bottom:{
-        type: String,
-        required: false,
-        index: {unique:false}
-    },
-
-    shoes:{
-        type: String,
-        required: false,
-        index: {unique:false}
     }
 
 }, {timestamps: true});

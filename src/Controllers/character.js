@@ -8,14 +8,21 @@ const createCharacter = async (name) => {
         console.log('El nombre de Character ya esta en uso.');
     }
     if(!existCharacter){
-        const character = new Character({
-            name: name
-        });
-        let charac = await character.save();
-        console.log('Character creado correctamente.' , charac);
-        return {charac};
-    }else{
-        return false;
+        console.log('Comienzo a crear personaje');
+        const cha = new Character(
+            {
+                name: name
+            }
+        );
+        try{
+            let charac = await cha.save();
+            console.log(charac);
+            console.log('Character creado correctamente.' , charac);
+            return { charac };
+        }catch(error){
+            console.error('Error' , error);
+            throw error;
+        }
     }
 };
 
