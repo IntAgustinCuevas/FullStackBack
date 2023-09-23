@@ -29,6 +29,7 @@ mongoose
 .catch((err) => console.log(err));
 
 //--------------LLamadas--------------
+//-----------GET-----------------------
 
 // Pagina principal.
 app.get('/', (req, res) => {
@@ -88,6 +89,8 @@ app.get('/characters' , async (req,res) => {
 	}
 })
 
+//----------------POST------------------------------
+
 //POST crear nuevo usuario
 app.post('/users/add' , async (req , res) => {
 	let name = req.body.name;
@@ -137,4 +140,6 @@ app.post('/characters/add' , async (req, res) => {
 		res.status(500).send('Ocurrio un error.');
 	}
 });
+
+
 
