@@ -48,7 +48,7 @@ const loginUser = async(email,password) => {
     //console.log({loginUser});
     if (loginUser) {
         const passwordCheck = crypto.createHash('sha256').update(password + loginUser.token).digest('hex');
-        console.log(passwordCheck);
+        //console.log(passwordCheck);
         if (loginUser.password === passwordCheck) {
             console.log('Correct Password');
             return {loginUser};

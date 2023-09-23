@@ -32,4 +32,6 @@ const getCharacters = async (limit,offset) => {
     return characters;
 }
 
+
+
 module.exports = { createCharacter , getCharacters }
