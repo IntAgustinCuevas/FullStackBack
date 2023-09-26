@@ -13,7 +13,7 @@ app.use(cors());
 //--------Controllers----------------
 const userController = require('../src/Controllers/user');
 const characterController = require('../src/Controllers/character');
-
+const outfitController = require('../src/Controllers/outfit');
 
 //--------Start server---------------
 app.listen(app.get('PORT'), () => {
@@ -29,15 +29,16 @@ mongoose
 .catch((err) => console.log(err));
 
 //--------------LLamadas--------------
-//-----------GET-----------------------
 
-// Pagina principal.
+
+// Pagina de inicio.
 app.get('/', (req, res) => {
-  res.status(200).json({
+	res.status(200).json({
 	text: "EMPEZAR JUEGO"
 	})
 }); 
 
+// Pagina principal.
 app.get('/home', (req, res) => {
 	res.status(200).json({
 		login: "INICIAR SESION",
@@ -45,6 +46,7 @@ app.get('/home', (req, res) => {
 	})
 });
 
+//-----------GET usuarios-----------------------
 // GET de todos los usuarios de la base de datos.
 app.get('/users', async (req, res) => {
 	
@@ -76,6 +78,7 @@ app.get('/users/:id', async (req, res) => {
   }
 }); 
 
+//-----------GET personajes----------
 //GET de los personajes disponibles.
 app.get('/characters' , async (req,res) => {
 	let limit = req.query.limit;
@@ -88,6 +91,57 @@ app.get('/characters' , async (req,res) => {
 		res.status(500).send('Error, intentelo mas tarde');
 	}
 })
+
+//GET de un personaje.
+app.get('/characters/:id', async (req, res) => {
+  
+	let id = req.params.id;
+	
+	try {
+	  const result = await characterController.getOneCharacter(id);
+	  res.status(200).json(result);
+	} 
+	catch (err) {
+	  res.status(500).send('Error, intentelo mas tarde.');
+	  console.log(err);
+	}
+  });
+
+//---------GET outfits--------------------
+//GET de outfits creados.
+app.get('/outfits', async (req, res) => {
+	
+	let limit = req.query.limit;
+	let offset = req.query.offset;
+
+	try {
+		const result = await outfitController.getOutfits(limit,offset);
+		res.status(200).json(result);
+	} 
+	catch (err) {
+		res.status(500).send('Error, intentelo mas tarde.');
+		console.log(err);
+	}
+});
+
+//GET de partes de arriba.
+app.get('/jackets', async (req, res) => {
+	
+	let limit = req.query.limit;
+	let offset = req.query.offset;
+
+	try {
+		const result = await outfitController.getJackets(limit,offset);
+		res.status(200).json(result);
+	} 
+	catch (err) {
+		res.status(500).send('Error, intentelo mas tarde.');
+		console.log(err);
+	}
+});
+
+
+
 
 //----------------POST------------------------------
 
@@ -128,8 +182,12 @@ app.post('/users/login' , async (req, res) => {
 //POST crear personaje.
 app.post('/characters/add' , async (req, res) => {
 	let name = req.body.name;
+	let face = req.body.face;
+	let outfit = req.body.outfit;
+	let userID = req.body.userID;
+
 	try{	
-		const result = await characterController.createCharacter(name);	
+		const result = await characterController.createCharacter(name,face,outfit,userID);	
 		console.log(result);
 		if(result){
 			res.status(201).send('Personaje creado correctamente');
@@ -141,5 +199,18 @@ app.post('/characters/add' , async (req, res) => {
 	}
 });
 
+//POST crear outfit.
+app.post('/outfits/add' , async (req, res) => {
+	let jacket = req.body.jacket;
 
+	try{	
+		const result = await outfitController.createOutfit(jacket);	
+		console.log(result);
+		if(result){
+			res.status(201).send('Outfit creado correctamente');
+		}
+	}catch(error){
+		res.status(500).send('Ocurrio un error.');
+	}
+});
 

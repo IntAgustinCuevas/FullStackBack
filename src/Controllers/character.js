@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
 const Character = require('../Models/characters');
 
-const createCharacter = async (name) => {
+const createCharacter = async (name,face,outfit,userID) => {
     let existCharacter = await Character.findOne({name: name});
 
     if(existCharacter){
         console.log('El nombre de Character ya esta en uso.');
     }
     if(!existCharacter){
-        console.log('Comienzo a crear personaje');
+        //console.log('Comienzo a crear personaje');
         const cha = new Character(
             {
-                name: name
+                name: name,
+                face: face,
+                outfit: outfit,
+                userID: userID
             }
         );
         try{
@@ -32,6 +35,9 @@ const getCharacters = async (limit,offset) => {
     return characters;
 }
 
+const getOneCharacter = async (id) => {
+    const character = await Character.findById(id);
+    return character;
+}
 
-
-module.exports = { createCharacter , getCharacters }
+module.exports = { createCharacter , getCharacters , getOneCharacter }
