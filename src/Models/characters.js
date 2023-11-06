@@ -1,23 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Outfit = require('./outfits');
 const characterSchema = new Schema({
 
+    userId:{
+        type: String,
+        required: true
+    },
     name:{
-        type: String,
+        type:String,
         required: true,
-        index: {unique: true}
+        index: {unique:true}
     },
-    face:{
+    personaje:{
         type: String,
-        required: false
+        required: true
     },
-    outfit:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Outfit', 
-        required: false
+    parteSuperior:{
+        type: String,
+        required: true
     },
-    userID:{
+    pantalon:{
+        type: String,
+        required: true
+    },
+    calzado:{
         type: String,
         required: true
     }

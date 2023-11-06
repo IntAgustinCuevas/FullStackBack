@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Character = require('../Models/characters');
 
-const createCharacter = async (name,face,outfit,userID) => {
+const createCharacter = async (userId,name,personaje,parteSuperior,pantalon,calzado) => {
     let existCharacter = await Character.findOne({name: name});
 
     if(existCharacter){
@@ -11,12 +11,15 @@ const createCharacter = async (name,face,outfit,userID) => {
         //console.log('Comienzo a crear personaje');
         const cha = new Character(
             {
+                userId: userId,
                 name: name,
-                face: face,
-                outfit: outfit,
-                userID: userID
+                personaje: personaje,
+                parteSuperior: parteSuperior,
+                pantalon: pantalon,
+                calzado: calzado
             }
         );
+
         try{
             let charac = await cha.save();
             console.log(charac);
@@ -29,8 +32,8 @@ const createCharacter = async (name,face,outfit,userID) => {
     }
 };
 
-const getCharacters = async (limit,offset) => {
-    const characters = await Character.find({}).limit(limit).skip(offset);
+const getUserCharacters = async (userId) => {
+    const characters = await Character.find({userId}).limit(5).sort({createdAt: -1});
     
     return characters;
 }
@@ -40,4 +43,4 @@ const getOneCharacter = async (id) => {
     return character;
 }
 
-module.exports = { createCharacter , getCharacters , getOneCharacter }
+module.exports = { createCharacter , getUserCharacters , getOneCharacter }

@@ -3,9 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
 //------------Settings--------------
-app.set('PORT', process.env.PORT || 4000);
-const mongoURL = 'mongodb+srv://agustin2010c:1553020306@cluster0.pq4qyem.mongodb.net/FullStackWeb?retryWrites=true&w=majority'
+require('dotenv').config();
+app.set('port', process.env.PORT || 4000);
 app.use(express.json());
 app.use(cors());
 
@@ -16,36 +17,19 @@ const characterController = require('../src/Controllers/character');
 const outfitController = require('../src/Controllers/outfit');
 
 //--------Start server---------------
-app.listen(app.get('PORT'), () => {
-    console.log(`Server running on port`,app.get('PORT'));
+app.listen(app.get('port'), () => {
+    console.log(`Server running on port`,app.get('port'));
 });
 
 //--------Connetc to MongoDB----------
 mongoose
-.connect(mongoURL , { useNewUrlParser: true, useUnifiedTopology: true })
+.connect(process.env.mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {
   console.log("connected");
 })
 .catch((err) => console.log(err));
 
 //--------------LLamadas--------------
-
-
-// Pagina de inicio.
-app.get('/', (req, res) => {
-	res.status(200).json({
-	text: "EMPEZAR JUEGO"
-	})
-}); 
-
-// Pagina principal.
-app.get('/home', (req, res) => {
-	res.status(200).json({
-		login: "INICIAR SESION",
-		signup: "REGISTRARSE"
-	})
-});
-
 //-----------GET usuarios-----------------------
 // GET de todos los usuarios de la base de datos.
 app.get('/users', async (req, res) => {
@@ -79,13 +63,12 @@ app.get('/users/:id', async (req, res) => {
 }); 
 
 //-----------GET personajes----------
-//GET de los personajes disponibles.
-app.get('/characters' , async (req,res) => {
-	let limit = req.query.limit;
-	let offset = req.query.offset;
+//GET de todos los personajes de un usuario.
+app.get('/characters/:id' , async (req,res) => {
+	let userId = req.params.id;
 
 	try {
-        const result = await characterController.getCharacters(limit,offset);
+        const result = await characterController.getUserCharacters(userId);
         res.status(200).json(result);
     }catch(error){
 		res.status(500).send('Error, intentelo mas tarde');
@@ -93,7 +76,7 @@ app.get('/characters' , async (req,res) => {
 })
 
 //GET de un personaje.
-app.get('/characters/:id', async (req, res) => {
+app.get('/character/:id', async (req, res) => {
   
 	let id = req.params.id;
 	
@@ -109,7 +92,7 @@ app.get('/characters/:id', async (req, res) => {
 
 //---------GET outfits--------------------
 //GET de outfits creados.
-app.get('/outfits', async (req, res) => {
+/*app.get('/outfits', async (req, res) => {
 	
 	let limit = req.query.limit;
 	let offset = req.query.offset;
@@ -122,25 +105,7 @@ app.get('/outfits', async (req, res) => {
 		res.status(500).send('Error, intentelo mas tarde.');
 		console.log(err);
 	}
-});
-
-//GET de partes de arriba.
-app.get('/jackets', async (req, res) => {
-	
-	let limit = req.query.limit;
-	let offset = req.query.offset;
-
-	try {
-		const result = await outfitController.getJackets(limit,offset);
-		res.status(200).json(result);
-	} 
-	catch (err) {
-		res.status(500).send('Error, intentelo mas tarde.');
-		console.log(err);
-	}
-});
-
-
+});*/
 
 
 //----------------POST------------------------------
@@ -181,13 +146,15 @@ app.post('/users/login' , async (req, res) => {
 
 //POST crear personaje.
 app.post('/characters/add' , async (req, res) => {
+	let userId = req.body.userId
 	let name = req.body.name;
-	let face = req.body.face;
-	let outfit = req.body.outfit;
-	let userID = req.body.userID;
-
+	let personaje = req.body.personaje;
+	let parteSuperior = req.body.parteSuperior;
+	let pantalon = req.body.pantalon;
+	let calzado = req.body.calzado;
+	console.log(userId)
 	try{	
-		const result = await characterController.createCharacter(name,face,outfit,userID);	
+		const result = await characterController.createCharacter(userId,name,personaje,parteSuperior,pantalon,calzado);	
 		console.log(result);
 		if(result){
 			res.status(201).send('Personaje creado correctamente');
@@ -195,12 +162,13 @@ app.post('/characters/add' , async (req, res) => {
 			res.status(409).send('Nombre de personaje en uso.');
 		}
 	}catch(error){
+		console.error(error);
 		res.status(500).send('Ocurrio un error.');
 	}
 });
 
 //POST crear outfit.
-app.post('/outfits/add' , async (req, res) => {
+/*app.post('/outfits/add' , async (req, res) => {
 	let jacket = req.body.jacket;
 
 	try{	
@@ -212,5 +180,5 @@ app.post('/outfits/add' , async (req, res) => {
 	}catch(error){
 		res.status(500).send('Ocurrio un error.');
 	}
-});
+});*/
 
