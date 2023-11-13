@@ -38,8 +38,8 @@ const getUserCharacters = async (userId) => {
     return characters;
 }
 
-const getOneCharacter = async (id) => {
-    const character = await Character.findById(id);
+const getOneCharacter = async (name) => {
+    const character = await Character.find({name});
     return character;
 }
 

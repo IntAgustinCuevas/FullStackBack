@@ -76,12 +76,12 @@ app.get('/characters/:id' , async (req,res) => {
 })
 
 //GET de un personaje.
-app.get('/character/:id', async (req, res) => {
+app.get('/character/:name', async (req, res) => {
   
-	let id = req.params.id;
+	let name = req.params.name;
 	
 	try {
-	  const result = await characterController.getOneCharacter(id);
+	  const result = await characterController.getOneCharacter(name);
 	  res.status(200).json(result);
 	} 
 	catch (err) {
@@ -89,23 +89,6 @@ app.get('/character/:id', async (req, res) => {
 	  console.log(err);
 	}
   });
-
-//---------GET outfits--------------------
-//GET de outfits creados.
-/*app.get('/outfits', async (req, res) => {
-	
-	let limit = req.query.limit;
-	let offset = req.query.offset;
-
-	try {
-		const result = await outfitController.getOutfits(limit,offset);
-		res.status(200).json(result);
-	} 
-	catch (err) {
-		res.status(500).send('Error, intentelo mas tarde.');
-		console.log(err);
-	}
-});*/
 
 
 //----------------POST------------------------------
@@ -167,18 +150,5 @@ app.post('/characters/add' , async (req, res) => {
 	}
 });
 
-//POST crear outfit.
-/*app.post('/outfits/add' , async (req, res) => {
-	let jacket = req.body.jacket;
 
-	try{	
-		const result = await outfitController.createOutfit(jacket);	
-		console.log(result);
-		if(result){
-			res.status(201).send('Outfit creado correctamente');
-		}
-	}catch(error){
-		res.status(500).send('Ocurrio un error.');
-	}
-});*/
 
