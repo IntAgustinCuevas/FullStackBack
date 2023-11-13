@@ -14,7 +14,6 @@ app.use(cors());
 //--------Controllers----------------
 const userController = require('../src/Controllers/user');
 const characterController = require('../src/Controllers/character');
-const outfitController = require('../src/Controllers/outfit');
 
 //--------Start server---------------
 app.listen(app.get('port'), () => {
