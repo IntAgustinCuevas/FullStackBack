@@ -9,6 +9,7 @@ Este repositorio contiene el backend de la aplicación web FullStack, construido
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [API Endpoints](#api-endpoints)
+- [Contribuciones](#contribuciones)
 
 ## Descripción
 
@@ -65,5 +66,9 @@ A continuación se detallan algunos de los endpoints disponibles en la API. Para
 - `GET /api/items/:id` - Obtener un ítem por ID
 - `PUT /api/items/:id` - Actualizar un ítem por ID
 - `DELETE /api/items/:id` - Eliminar un ítem por ID
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request con tus mejoras o nuevos features.
 
 
