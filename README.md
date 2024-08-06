@@ -13,7 +13,7 @@ Este repositorio contiene el backend de la aplicación web FullStack, construido
 
 ## Descripción
 
-FullStackBack es el backend de una aplicación web diseñada para [descripción breve de la funcionalidad de la aplicación]. Utiliza Node.js y Express para la lógica del servidor y Mongoose para interactuar con una base de datos MongoDB.
+FullStackBack es el backend de una aplicación web diseñada para el entretenimiento infantil a modo de Videojuego. Utiliza Node.js y Express para la lógica del servidor y Mongoose para interactuar con una base de datos MongoDB.
 
 ## Tecnologías
 
