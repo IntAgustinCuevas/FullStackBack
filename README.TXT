@@ -1,29 +1,69 @@
---Endpoints:
+# FullStackBack
 
-'/' (Metodo GET) :  Pagina de inicio del juego, envia como respuesta el texto para el boton que 
-        da inicio al juego.
+Este repositorio contiene el backend de la aplicación web FullStack, construido con Node.js, Express y MongoDB.
 
-'/home' (Metodo GET) : Pagina principal del juego, donde se podra seleccionar entre registrarse 
-                       o iniciar sesion.
+## Contenido
 
-'/users' (Metodo GET)  : Acceder a todos los usuarios registrados en la base de datos. 
+- [Descripción](#descripción)
+- [Tecnologías](#tecnologías)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [API Endpoints](#api-endpoints)
 
-'/users/:id' (Metodo GET)  : Acceder a un usuario registrado en la base de datos mediante su ID.
+## Descripción
 
-'/users/add' (Metodo POST)  : Registrar un nuevo usuario en la base de datos.
+FullStackBack es el backend de una aplicación web diseñada para [descripción breve de la funcionalidad de la aplicación]. Utiliza Node.js y Express para la lógica del servidor y Mongoose para interactuar con una base de datos MongoDB.
 
-'/users/login' (Metodo POST)  : Verificar si un usuario esta registrado en la base de datos mediante 
-                                su email y contraseña.
+## Tecnologías
 
-'/characters' (Metodo GET)  : Acceder a todos los personajes almacenados en la base de datos.
+- Node.js
+- Express
+- Mongoose
+- MongoDB
 
-'/characters/add' (Metodo POST)  : Crear un nuevo personaje. 
+## Instalación
 
-'/characters/:id' (Metodo GET)  :Acceder a un personaje mediante su ID.
+Para clonar y ejecutar este proyecto, sigue estos pasos:
 
-'/outfits' (Metodo GET)  : Acceder a los atuendos en la base de datos.
+1. Clona el repositorio:
 
-'/outfits/add' (Metodo POST)  : Guardar la seleccion de vestimentas de los personajes.
+    ```sh
+    git clone https://github.com/IntAgustinCuevas/FullStackBack.git
+    cd FullStackBack
+    ```
 
-'/jackets' (Metodo GET)  : Acceder a la vestimenta de la parte de arriba.
+2. Instala las dependencias:
+
+    ```sh
+    npm install
+    ```
+
+3. Configura las variables de entorno:
+
+    Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
+
+    ```env
+    MONGO_URI=your_mongo_uri
+    PORT=your_port
+    JWT_SECRET=your_jwt_secret
+    ```
+
+4. Inicia el servidor:
+
+    ```sh
+    npm start
+    ```
+
+## Uso
+
+### Endpoints
+
+A continuación se detallan algunos de los endpoints disponibles en la API. Para una lista completa, consulta el código fuente.
+
+- `GET /api/items` - Obtener todos los ítems
+- `POST /api/items` - Crear un nuevo ítem
+- `GET /api/items/:id` - Obtener un ítem por ID
+- `PUT /api/items/:id` - Actualizar un ítem por ID
+- `DELETE /api/items/:id` - Eliminar un ítem por ID
+
 
